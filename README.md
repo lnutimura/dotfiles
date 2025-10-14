@@ -11,6 +11,7 @@ my personal dotfiles
 * [fish](https://fishshell.com/)
 * [fisher](https://github.com/jorgebucaran/fisher)
 * [i3](https://i3wm.org/)
+* [neovim](https://github.com/neovim/neovim)
 * [picom](https://github.com/yshui/picom)
 * [polybar](https://github.com/polybar/polybar)
 * [rg](https://github.com/BurntSushi/ripgrep)
