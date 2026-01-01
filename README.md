@@ -18,4 +18,5 @@ my personal dotfiles
 * [rofi](https://github.com/davatorium/rofi)
 * [tmux](https://github.com/tmux/tmux)
 * [tpm](https://github.com/tmux-plugins/tpm)
+* [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter)
 * [z](https://github.com/rupa/z)
