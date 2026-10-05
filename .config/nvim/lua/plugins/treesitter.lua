@@ -1,7 +1,4 @@
 return {
-  -- treesitter playground
-  { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" },
-
   -- treesitter
   {
     "nvim-treesitter/nvim-treesitter",
@@ -12,13 +9,19 @@ return {
         "cmake",
         "cpp",
         "css",
-        "fish",
+        "dockerfile",
         "gitignore",
         "go",
+        "gotmpl",
+        "hcl",
         "http",
+        "java",
+        "kotlin",
+        "lua",
         "python",
         "regex",
         "sql",
+        "terraform",
       },
 
       -- https://github.com/nvim-treesitter/playground#query-linter

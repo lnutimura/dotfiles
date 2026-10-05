@@ -19,21 +19,16 @@ keymap.set("n", "<Leader>D", '"_D')
 keymap.set("v", "<Leader>d", '"_d')
 keymap.set("v", "<Leader>D", '"_D')
 
--- rename
-keymap.set("n", "<Leader>rn", ":IncRename ")
-
 -- increment/decrement
-keymap.set("n", "+", "<C-a>")
-keymap.set("n", "-", "<C-x>")
+-- (not necessary; using dial.nvim)
+-- keymap.set("n", "+", "<C-a>")
+-- keymap.set("n", "-", "<C-x>")
 
 -- delete word backwards
 keymap.set("n", "dw", 'vb"_d')
 
 -- select all
 keymap.set("n", "<C-a>", "gg<S-v>G")
-
--- save with root permission (not working for now)
--- vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
 
 -- disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
@@ -63,7 +58,15 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
+-- move lines
+keymap.set("n", "<A-j>", ":m .+1<CR>==", opts)
+keymap.set("n", "<A-k>", ":m .-2<CR>==", opts)
+keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
+keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
+
 -- diagnostics
 keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
+  vim.diagnostic.jump({ count = 1, float = true })
 end, opts)

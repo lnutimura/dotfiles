@@ -1,19 +1,4 @@
 return {
-  -- annotation generator
-  {
-    "danymat/neogen",
-    keys = {
-      {
-        "<leader>cc",
-        function()
-          require("neogen").generate({})
-        end,
-        desc = "Neogen Comment",
-      },
-    },
-    opts = { snippet_engine = "luasnip" },
-  },
-
   -- incremental rename
   {
     "smjonas/inc-rename.nvim",
@@ -37,13 +22,23 @@ return {
     end,
   },
 
-  -- enhanced increment/decrement
+  -- alignments
+  {
+    "nvim-mini/mini.align",
+    version = false,
+    config = function()
+      local align = require("mini.align")
+      align.setup()
+    end,
+  },
+
+  -- enhanced increase/descrease
   {
     "monaqa/dial.nvim",
     -- stylua: ignore
     keys = {
-      { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
-      { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
+      { "+", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
+      { "-", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
     },
     config = function()
       local augend = require("dial.augend")
@@ -57,25 +52,6 @@ return {
           augend.constant.new({ elements = { "let", "const" } }),
         },
       })
-    end,
-  },
-
-  -- tree-like view for symbols
-  {
-    "simrat39/symbols-outline.nvim",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    cmd = "SymbolsOutline",
-    opts = {
-      position = "right",
-    },
-  },
-
-  -- completion
-  {
-    "nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
     end,
   },
 }

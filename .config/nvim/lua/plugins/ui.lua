@@ -1,5 +1,5 @@
 return {
-  -- ui replacement for messages, cmdline, and the popupmenu
+  -- messages, cmdline and the popupmenu
   {
     "folke/noice.nvim",
     opts = function(_, opts)
@@ -35,7 +35,7 @@ return {
         all = {
           -- options for the message history that you get with `:Noice`
           view = "split",
-          opt = { enter = true, format = "details" },
+          opts = { enter = true, format = "details" },
           filter = {},
         },
       }
@@ -53,7 +53,6 @@ return {
     end,
   },
 
-  -- notifications
   {
     "rcarriga/nvim-notify",
     opts = {
@@ -61,18 +60,20 @@ return {
     },
   },
 
-  -- animations
   {
-    "nvim-mini/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      opts.scroll = {
-        enable = false,
-      }
-    end,
+    "folke/snacks.nvim",
+    opts = {
+      scroll = { enabled = false },
+      -- words = { enabled = false },
+    },
+    keys = {},
   },
 
-  -- bufferline
+  -- {
+  --   "rrethy/vim-illuminate",
+  -- },
+
+  -- buffer line
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -90,26 +91,7 @@ return {
     },
   },
 
-  -- statusline
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      local LazyVim = require("lazyvim.util")
-      opts.sections.lualine_c[4] = {
-        LazyVim.lualine.pretty_path({
-          length = 0,
-          relative = "cwd",
-          modified_hl = "MatchParen",
-          directory_hl = "",
-          filename_hl = "Bold",
-          modified_sign = "",
-          readonly_icon = " 󰌾 ",
-        }),
-      }
-    end,
-  },
-
-  -- filenames
+  -- filename
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -131,5 +113,37 @@ return {
         end,
       })
     end,
+  },
+
+  -- statusline
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      local LazyVim = require("lazyvim.util")
+      opts.sections.lualine_c[4] = {
+        LazyVim.lualine.pretty_path({
+          length = 0,
+          relative = "cwd",
+          modified_hl = "MatchParen",
+          directory_hl = "",
+          filename_hl = "Bold",
+          modified_sign = "",
+          readonly_icon = " 󰌾 ",
+        }),
+      }
+    end,
+  },
+
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    opts = {
+      plugins = {
+        gitsigns = true,
+        tmux = true,
+        kitty = { enabled = false, font = "+2" },
+      },
+    },
+    keys = { { "<leader>z", "<cmd>ZenMode<cr>", desc = "Zen Mode" } },
   },
 }

@@ -101,6 +101,8 @@ return {
           },
         },
         ruff = {},
+        tofu_ls = {},
+        gopls = {},
       },
     },
   },
