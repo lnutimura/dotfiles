@@ -36,10 +36,3 @@ command = "copy-search.search"
 key = "prefix+tab"
 type = "plugin_action"
 command = "copy-search.extract"
-
-# luan.reviewr
-[[keys.command]]
-key = "prefix+alt+r"
-type = "plugin_action"
-command = "luan.reviewr.review"
-description = "review copied GitHub PR with Cursor"
