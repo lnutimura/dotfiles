@@ -7,12 +7,6 @@
 -- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
--- turn off paste mode when leaving insert
-vim.api.nvim_create_autocmd("InsertLeave", {
-  pattern = "*",
-  command = "set nopaste",
-})
-
 -- disable the concealing in markdown (LazyVim already does it for json)
 -- the default conceallevel is 2 in LazyVim
 vim.api.nvim_create_autocmd("FileType", {

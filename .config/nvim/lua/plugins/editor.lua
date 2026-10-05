@@ -1,17 +1,5 @@
 return {
-  {
-    enabled = false,
-    "folke/flash.nvim",
-    ---@type Flash.Config
-    opts = {
-      search = {
-        forward = true,
-        multi_window = false,
-        wrap = false,
-        incremental = true,
-      },
-    },
-  },
+  { "folke/flash.nvim", enabled = false },
 
   {
     "brenoprata10/nvim-highlight-colors",
@@ -45,10 +33,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
       "nvim-telescope/telescope-file-browser.nvim",
     },
     keys = {
@@ -208,14 +192,12 @@ return {
         },
       })
       telescope.setup(opts)
-      require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
     end,
   },
 
   {
     "kazhala/close-buffers.nvim",
-    event = "VeryLazy",
     keys = {
       {
         "<leader>th",
@@ -230,22 +212,6 @@ return {
           require("close_buffers").delete({ type = "nameless" })
         end,
         desc = "Close Nameless Buffers",
-      },
-    },
-  },
-
-  {
-    "saghen/blink.cmp",
-    opts = {
-      completion = {
-        menu = {
-          winblend = vim.o.pumblend,
-        },
-      },
-      signature = {
-        window = {
-          winblend = vim.o.pumblend,
-        },
       },
     },
   },

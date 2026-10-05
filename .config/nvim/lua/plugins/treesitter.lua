@@ -4,7 +4,6 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "bash",
         "cmake",
         "cpp",
         "css",
@@ -16,9 +15,6 @@ return {
         "http",
         "java",
         "kotlin",
-        "lua",
-        "python",
-        "regex",
         "sql",
         "terraform",
       },
