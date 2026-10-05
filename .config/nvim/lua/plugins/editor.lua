@@ -168,7 +168,7 @@ return {
           n = {},
         },
       })
-      opts.pickers = {
+      opts.pickers = vim.tbl_deep_extend("force", opts.pickers or {}, {
         diagnostics = {
           theme = "ivy",
           initial_mode = "normal",
@@ -176,8 +176,8 @@ return {
             preview_cutoff = 9999,
           },
         },
-      }
-      opts.extensions = {
+      })
+      opts.extensions = vim.tbl_deep_extend("force", opts.extensions or {}, {
         file_browser = {
           theme = "dropdown",
           -- disables netrw and use telescope-file-browser in its place
@@ -206,7 +206,7 @@ return {
             },
           },
         },
-      }
+      })
       telescope.setup(opts)
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("file_browser")
@@ -222,14 +222,14 @@ return {
         function()
           require("close_buffers").delete({ type = "hidden" })
         end,
-        "Close Hidden Buffers",
+        desc = "Close Hidden Buffers",
       },
       {
         "<leader>tu",
         function()
           require("close_buffers").delete({ type = "nameless" })
         end,
-        "Close Nameless Buffers",
+        desc = "Close Nameless Buffers",
       },
     },
   },

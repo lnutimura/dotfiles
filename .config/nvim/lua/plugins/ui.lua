@@ -54,15 +54,9 @@ return {
   },
 
   {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 5000,
-    },
-  },
-
-  {
     "folke/snacks.nvim",
     opts = {
+      notifier = { timeout = 5000 },
       scroll = { enabled = false },
       -- words = { enabled = false },
     },
