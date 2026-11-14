@@ -9,3 +9,6 @@ cursor-style-blink  = true
 macos-option-as-alt = left
 keybind             = alt+left=unbind
 keybind             = alt+right=unbind
+# Let herdr use these to move tabs (ghostty: previous_tab/next_tab).
+keybind             = ctrl+shift+arrow_left=unbind
+keybind             = ctrl+shift+arrow_right=unbind

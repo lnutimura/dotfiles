@@ -8,6 +8,9 @@ prefix = "ctrl+t"
 split_horizontal = "prefix+\""
 split_vertical   = "prefix+%"
 
+move_tab_previous = "ctrl+shift+left"
+move_tab_next     = "ctrl+shift+right"
+
 [ui]
 agent_panel_sort = "spaces"
 pane_borders = true
