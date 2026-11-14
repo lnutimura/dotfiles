@@ -86,6 +86,10 @@ sudo apt install --no-install-recommends \
   ```
 * the output line in `sway/config` names this machine's monitor
   (`DP-2`); list yours with `swaymsg -t get_outputs`.
+* use firefox from [mozilla's apt repo](https://support.mozilla.org/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions),
+  not the snap. on nvidia + wayland the snap cannot reach the gpu
+  (`DMABUF: FEATURE_FAILURE_NO_DRM_DEVICE`), so it renders and decodes
+  video on the cpu, and the 4k frames it hands to sway stall input.
 * waybar's tray only supports StatusNotifierItem, so sway starts
   `nm-applet --indicator`; `autostart/nm-applet.desktop` keeps dex from
   starting a second copy without it.
