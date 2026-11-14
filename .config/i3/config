@@ -36,7 +36,7 @@ exec --no-startup-id nm-applet
 
 exec --no-startup-id ~/.screenlayout/layout.sh
 exec --no-startup-id picom -f --daemon
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id ~/.fehbg
 exec --no-startup-id config-microphone
 
 # Use pactl to adjust volume in PulseAudio.
