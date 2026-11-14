@@ -1,0 +1,58 @@
+# sway config file
+#
+# Read `man 5 sway` for a complete reference.
+#
+# Keybindings, workspaces and the resize mode are shared with i3 and
+# live in ~/.config/wm/common.conf. This file keeps only what is sway/Wayland.
+
+include ~/.config/wm/common.conf
+
+# Shipped by the sway package: exports WAYLAND_DISPLAY, SWAYSOCK and
+# XDG_CURRENT_DESKTOP to systemd and D-Bus, so portals can find sway.
+include /etc/sway/config.d/*
+
+### Output
+#
+# One 27" 4K monitor at scale 1, like the i3 session.
+output DP-2 mode 3840x2160@60Hz scale 1
+
+# Machine-local wallpaper, shared with i3 (see the dotfiles README).
+output * bg ~/.local/share/wallpaper fill
+
+### Input
+#
+# sway does not read /etc/default/keyboard, so repeat the X layout here.
+input type:keyboard {
+    xkb_layout us
+    xkb_variant alt-intl
+}
+
+seat seat0 xcursor_theme DMZ-Black 24
+
+### Startup
+#
+# XDG autostart entries (gnome-keyring and friends).
+exec dex --autostart --environment sway
+
+# waybar's tray only speaks StatusNotifierItem, hence --indicator.
+exec nm-applet --indicator
+
+exec config-microphone
+
+# Lock after 10 minutes, on suspend and on `loginctl lock-session`
+# (see ~/.config/swayidle/config).
+exec swayidle -w
+
+### Keys only sway has
+#
+# Screenshots to the clipboard: Print for a region, Shift+Print for the screen.
+bindsym Print exec grim -g "$(slurp)" - | wl-copy --type image/png
+bindsym Shift+Print exec grim - | wl-copy --type image/png
+
+# exit sway (logs you out of your Wayland session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+### Bar
+bar {
+    swaybar_command waybar
+}

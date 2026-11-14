@@ -1,0 +1,95 @@
+/* mistpine (https://github.com/mistpine/mistpine, palette/mistpine.css).
+ * The bar is a status line: a raised surface (bg2) with status-fg text. */
+@define-color bg0 #071921;
+@define-color bg1 #0b1f27;
+@define-color bg2 #0f272e;
+@define-color bg3 #152f37;
+@define-color bg4 #26414a;
+@define-color fg1 #8796a0;
+@define-color fg2 #a7b0bb;
+@define-color fg3 #c4c9d0;
+@define-color red #be7356;
+@define-color yellow #c2a55b;
+@define-color blue #6f8fa8;
+
+* {
+  font-family: "InconsolataGo Nerd Font", "FontAwesome";
+  font-size: 15px;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+}
+
+window#waybar {
+  background: @bg2;
+  color: @fg2;
+}
+
+tooltip {
+  background: @bg0;
+  border: 1px solid @bg4;
+}
+
+tooltip label {
+  color: @fg3;
+}
+
+#cpu,
+#memory,
+#disk,
+#network,
+#pulseaudio,
+#clock,
+#tray,
+#mode {
+  padding: 0 10px;
+}
+
+/* polybar's "|" separators */
+#memory,
+#disk,
+#pulseaudio,
+#clock,
+#tray {
+  border-left: 1px solid @bg4;
+}
+
+#workspaces button {
+  padding: 0 10px;
+  color: @fg1;
+  background: transparent;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces button:hover {
+  background: @bg3;
+  color: @fg3;
+}
+
+#workspaces button.focused {
+  background: @bg3;
+  color: @fg3;
+  box-shadow: inset 0 -2px @blue;
+}
+
+#workspaces button.urgent {
+  color: @red;
+}
+
+#mode {
+  background: @red;
+  color: @bg1;
+}
+
+#pulseaudio.muted {
+  color: @fg1;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#tray > .needs-attention {
+  background: @red;
+}

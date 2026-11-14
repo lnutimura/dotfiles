@@ -1,0 +1,34 @@
+# mistpine (https://github.com/mistpine/mistpine)
+color=0b1f27
+font=JetBrainsMono Nerd Font
+show-failed-attempts
+ignore-empty-password
+indicator-radius=80
+indicator-thickness=8
+
+inside-color=0b1f27
+ring-color=26414a
+line-color=00000000
+separator-color=00000000
+text-color=c4c9d0
+key-hl-color=6f8fa8
+bs-hl-color=c98b56
+
+inside-ver-color=0b1f27
+ring-ver-color=6f8fa8
+line-ver-color=00000000
+text-ver-color=c4c9d0
+
+inside-wrong-color=0b1f27
+ring-wrong-color=be7356
+line-wrong-color=00000000
+text-wrong-color=be7356
+
+inside-clear-color=0b1f27
+ring-clear-color=c2a55b
+line-clear-color=00000000
+text-clear-color=c2a55b
+
+layout-bg-color=0f272e
+layout-border-color=00000000
+layout-text-color=a7b0bb

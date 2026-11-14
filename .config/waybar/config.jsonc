@@ -1,0 +1,61 @@
+// waybar for sway: polybar's modules and layout, in mistpine colours.
+// Styling lives in style.css; colours come from mistpine/mistpine.
+{
+  "layer": "top",
+  "position": "bottom",
+  "reload_style_on_change": true,
+
+  "modules-left": ["cpu", "memory", "disk"],
+  "modules-center": ["sway/workspaces", "sway/mode"],
+  "modules-right": ["network", "pulseaudio", "clock", "tray"],
+
+  "cpu": {
+    "interval": 1,
+    "format": "  <span color='#c2a55b'><b>CPU</b></span> <span color='#8c84b4'>{usage}%</span>"
+  },
+
+  "memory": {
+    "interval": 3,
+    "format": "  <span color='#c2a55b'><b>RAM</b></span> <span color='#8c84b4'>{used:0.1f} GiB/{avail:0.1f} GiB ({percentage}%)</span>"
+  },
+
+  "disk": {
+    "path": "/",
+    "interval": 10,
+    "format": "  <span color='#c2a55b'><b>{path}</b></span>: <span color='#8c84b4'>{used} of {total} ({percentage_free}%)</span>"
+  },
+
+  "sway/workspaces": {
+    "disable-scroll-wraparound": true
+  },
+
+  "network": {
+    "interface": "wlp5s0",
+    "interval": 3,
+    "format": "  <span color='#c2a55b'><b>{ifname}</b></span> <span color='#8c84b4'>({ipaddr})</span>   <span color='#8c84b4'>{bandwidthDownBytes}</span>   <span color='#8c84b4'>{bandwidthUpBytes}</span>",
+    "format-disconnected": "  <span color='#c2a55b'><b>{ifname}</b></span> <span color='#8c84b4'>disconnected</span>",
+    "tooltip-format": "{essid} ({signalStrength}%)"
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}",
+    "format-muted": "󰖁 {volume}",
+    "format-icons": {
+      "headphone": "󰋋",
+      "default": ["󰕾"]
+    },
+    "scroll-step": 3,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+
+  "clock": {
+    "interval": 1,
+    "format": "  <span color='#8c84b4'>{:%I:%M %p}</span>",
+    "format-alt": "  <span color='#8c84b4'>{:%a, %d %b %Y}</span>",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+
+  "tray": {
+    "spacing": 8
+  }
+}

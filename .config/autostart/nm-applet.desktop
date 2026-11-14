@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=NetworkManager Applet
+# i3 and sway start nm-applet themselves (sway needs --indicator for
+# waybar's tray); keep dex from starting a second copy without it.
+Hidden=true
