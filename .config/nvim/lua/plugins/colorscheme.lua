@@ -1,8 +1,12 @@
 return {
-  -- gruvbox
   {
-    "ellisonleao/gruvbox.nvim",
+    "mistpine/mistpine.nvim",
+    lazy = false,
     priority = 1000,
-    config = true,
+    opts = {},
+    config = function(_, opts)
+      require("mistpine").setup(opts)
+      vim.cmd.colorscheme("mistpine")
+    end,
   },
 }
