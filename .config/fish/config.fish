@@ -31,10 +31,11 @@ set -gx PATH ~/go/bin $PATH
 set -gx PATH /usr/local/go/bin $PATH
 set -gx PATH node_modules/.bin $PATH
 
+# asdf (0.16+ has no asdf.fish; put its shims on PATH)
+set -gx ASDF_DATA_DIR ~/.asdf
+set -gx PATH $ASDF_DATA_DIR/shims $PATH
+
 set -gx TERM xterm-256color
 
 if status is-interactive
 end
-
-# asdf
-source ~/.asdf/asdf.fish
