@@ -33,6 +33,12 @@ input type:keyboard {
 
 seat seat0 xcursor_theme DMZ-Black 24
 
+# Dead keys (alt-intl accents) in GTK apps. On Wayland GTK picks its
+# "wayland" input method, which needs an IME daemon to compose; with none
+# running, dead keys vanish. GTK reads this key through the settings
+# portal, so settings.ini cannot override it. X is unaffected.
+exec gsettings set org.gnome.desktop.interface gtk-im-module gtk-im-context-simple
+
 ### Startup
 #
 # XDG autostart entries (gnome-keyring and friends).
