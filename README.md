@@ -4,12 +4,11 @@ my personal dotfiles
 
 ## requirements
 
-* [alacritty-theme](https://github.com/alacritty/alacritty-theme)
-* [alacritty](https://alacritty.org/)
 * [asdf](https://asdf-vm.com/guide/getting-started.html)
 * [fd](https://github.com/sharkdp/fd)
 * [fish](https://fishshell.com/)
 * [fisher](https://github.com/jorgebucaran/fisher)
+* [ghostty](https://ghostty.org/)
 * [i3](https://i3wm.org/)
 * [neovim](https://github.com/neovim/neovim)
 * [picom](https://github.com/yshui/picom)
@@ -29,7 +28,7 @@ from the ubuntu archive:
 ```sh
 sudo apt install \
   xorg xserver-xorg-input-libinput \
-  i3 dex xss-lock network-manager-gnome \
+  i3 dex xss-lock network-manager-gnome ghostty \
   picom feh polybar rofi \
   pulseaudio-utils wireplumber x11-xserver-utils psmisc arandr \
   fonts-font-awesome
