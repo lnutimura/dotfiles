@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=picom
+# i3 starts picom itself; keep dex from starting a second copy.
+Hidden=true
