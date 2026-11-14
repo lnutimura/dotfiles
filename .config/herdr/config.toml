@@ -1,12 +1,33 @@
 onboarding = false
 [theme]
-name = "gruvbox"
+name = "terminal"
+
+[theme.custom]
+panel_bg = "#0b1f27"
+sidebar_bg = "#071921"
+active_row_bg = "#0f272e"
+selection_bg = "#152f37"
+surface_dim = "#071921"
+surface0 = "#0f272e"
+surface1 = "#152f37"
+overlay0 = "#26414a"
+overlay1 = "#c4c9d0"
+text = "#8796a0"
+subtext0 = "#a7b0bb"
+accent = "#6f8fa8"
+red = "#be7356"
+peach = "#c98b56"
+yellow = "#c2a55b"
+green = "#8a9a5b"
+teal = "#5f9a96"
+blue = "#6f8fa8"
+mauve = "#8c84b4"
 
 [keys]
 prefix = "ctrl+t"
 
 split_horizontal = "prefix+\""
-split_vertical   = "prefix+%"
+split_vertical = "prefix+%"
 
 move_tab_previous = "ctrl+shift+left"
 move_tab_next     = "ctrl+shift+right"
@@ -19,26 +40,7 @@ status_indicators = "dots"
 
 [ui.sidebar.agents]
 row_gap = 0
-rows = [
-  ["state_icon", "workspace", "tab"],
-  ["state_text", "terminal_title"],
-]
-
-# qq88976321/herdr-copy-search
-[[keys.command]]
-key = "prefix+["
-type = "plugin_action"
-command = "copy-search.copy"
-
-[[keys.command]]
-key = "prefix+/"
-type = "plugin_action"
-command = "copy-search.search"
-
-[[keys.command]]
-key = "prefix+tab"
-type = "plugin_action"
-command = "copy-search.extract"
+rows = [["state_icon", "workspace", "tab"], ["state_text", "terminal_title"]]
 
 # Toasts used by herdr_notify (WeeChat).
 [ui.toast]
