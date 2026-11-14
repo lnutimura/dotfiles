@@ -1,0 +1,28 @@
+#!/bin/sh
+# Run by i3 and sway at login.
+#
+# The systemd user manager and the session D-Bus outlive a logout while
+# any process keeps running (herdr's server, for one). Services they
+# started for the previous session keep its DISPLAY or WAYLAND_DISPLAY:
+# a portal bound to a dead X server makes every GTK app (ghostty, waybar)
+# hang on its Settings call until D-Bus times out. Point the user
+# environment at this session and stop the services that captured the
+# old one; D-Bus starts them again on demand.
+
+if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+    vars="DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+else
+    systemctl --user unset-environment WAYLAND_DISPLAY SWAYSOCK
+    vars="DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE"
+fi
+
+# shellcheck disable=SC2086 # $vars is a list of names
+dbus-update-activation-environment --systemd $vars
+
+systemctl --user stop \
+    xdg-desktop-portal.service \
+    xdg-desktop-portal-gtk.service \
+    xdg-desktop-portal-gnome.service \
+    xdg-desktop-portal-wlr.service \
+    dunst.service
+systemctl --user reset-failed dunst.service 2>/dev/null || true

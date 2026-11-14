@@ -11,6 +11,10 @@ include ~/.config/wm/common.conf
 # XDG_CURRENT_DESKTOP to systemd and D-Bus, so portals can find sway.
 include /etc/sway/config.d/*
 
+# Also clear what a previous (possibly i3) session left in the user
+# environment and restart the services bound to it; see the script.
+exec ~/.config/wm/session-start
+
 ### Output
 #
 # One 27" 4K monitor at scale 1, like the i3 session.

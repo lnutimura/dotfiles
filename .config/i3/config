@@ -7,6 +7,10 @@
 
 include ~/.config/wm/common.conf
 
+# Reset the user environment and services left over from a previous
+# (possibly sway) session; see the script for why.
+exec --no-startup-id ~/.config/wm/session-start
+
 # move tiling windows via drag & drop by left-clicking into the title bar,
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
