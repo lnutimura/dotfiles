@@ -47,3 +47,13 @@ sudo apt install \
   ```sh
   feh --bg-fill <primary-image> <secondary-image>
   ```
+
+## git hooks
+
+a pre-commit hook runs [gitleaks](https://github.com/gitleaks/gitleaks)
+on staged changes and blocks commits that contain secrets. enable it
+once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```

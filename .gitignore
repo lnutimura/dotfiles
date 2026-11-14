@@ -8,3 +8,22 @@
 .config/herdr/plugins.json
 .config/herdr/.plugins.lock
 .config/herdr/plugins/github/
+
+# secrets and machine-local files
+.env
+.env.*
+*.local
+*.local.*
+local.fish
+fish_variables
+*_history
+.netrc
+.config/gh/hosts.yml
+.ssh/
+.gnupg/
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
