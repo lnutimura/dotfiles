@@ -8,6 +8,7 @@
 .config/herdr/plugins.json
 .config/herdr/.plugins.lock
 .config/herdr/plugins/github/
+.config/herdr/session-snapshots/
 
 # secrets and machine-local files
 .env
