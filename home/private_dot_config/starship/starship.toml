@@ -11,6 +11,7 @@ format = '$time'
 
 [git_status]
 format = '([$all_status](bold red) )([$ahead_behind](bold green) )'
+use_git_executable = true
 
 ahead = "⇡${count}"
 behind = "⇣${count}"
