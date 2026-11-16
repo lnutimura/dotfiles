@@ -3,6 +3,7 @@
 # One package per line; blank lines and # comments are ignored.
 
 # base tools
+build-essential
 curl
 eza
 fd-find

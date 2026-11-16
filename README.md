@@ -41,8 +41,17 @@ chezmoi apply
 `apt install`s whatever is missing from `packages/apt*.txt` (asking for
 sudo only then), installs neovim from the snap (the archive has 0.11),
 and installs fisher plus the plugins in `fish_plugins`. on macos it
-installs homebrew if needed and runs `brew bundle`. on both it enables
-the gitleaks pre-commit hook in this clone.
+installs homebrew if needed and runs `brew bundle`. on both it installs
+herdr into `~/.local/bin` with its official installer if it's missing
+(`herdr update` keeps it current after that), and enables the gitleaks
+pre-commit hook in this clone.
+
+neovim gets the tree-sitter cli from mason (`plugins/lsp.lua`), not
+from the system: nvim-treesitter needs 0.26.1 or later, and ubuntu
+26.04's `tree-sitter-cli` is 0.25, so don't install that one. building
+parsers needs a C compiler: `build-essential` on ubuntu (in
+`apt.txt`), the xcode command line tools on macos (the homebrew
+installer sets them up).
 
 ## daily workflow
 
@@ -69,11 +78,7 @@ config, get the change back into the repo:
 
 not covered by the scripts:
 
-* [herdr](https://herdr.dev/) (both)
 * [asdf](https://asdf-vm.com/guide/getting-started.html) (both)
-* [tree-sitter-cli](https://github.com/tree-sitter/tree-sitter) for
-  `nvim-treesitter` on ubuntu (`sudo apt install tree-sitter-cli`;
-  macos gets it from the Brewfile)
 * JetBrainsMono and InconsolataGo fonts from
   [nerd fonts](https://www.nerdfonts.com/) on ubuntu (not packaged;
   polybar needs InconsolataGo). macos gets JetBrainsMono from the
