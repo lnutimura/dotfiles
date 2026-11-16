@@ -1,34 +1,151 @@
 # dotfiles
 
-my personal dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
+My configs for a MacBook Pro and an Ubuntu 26.04 desktop, managed with
+[chezmoi](https://www.chezmoi.io/) and themed with
+[mistpine](https://github.com/mistpine/mistpine) throughout.
 
-one repo serves two machines:
+| | macOS | Ubuntu 26.04 |
+|---|---|---|
+| [Terminal](#terminal) | Ghostty + herdr | Ghostty + herdr |
+| [Shell](#shell) | zsh + Starship | fish + Tide |
+| [Editor](#neovim) | Neovim 0.12 | Neovim 0.12 |
+| [Desktop](#window-managers) | macOS | i3 (X11) and sway (Wayland) |
+| [Packages](#install) | Homebrew | apt, snap |
 
-* **macos:** ghostty, herdr, neovim, zsh, starship
-* **ubuntu 26.04:** ghostty, herdr, neovim, fish, i3 and sway, polybar
-  and waybar, picom, rofi
+**Contents:** [Terminal](#terminal) · [Shell](#shell) · [Neovim](#neovim) ·
+[Window managers](#window-managers) · [Theme](#theme) · [Fonts](#fonts) ·
+[Install](#install) · [Daily use](#daily-use) ·
+[Ubuntu notes](#ubuntu-notes) · [Repository layout](#repository-layout)
 
-## layout
+> [!WARNING]
+> These are personal settings. Read before you apply them.
 
-* `home/` is the chezmoi source state (`.chezmoiroot`): each file maps
-  to a path in `~`, e.g. `home/private_dot_config/sway/config` is
-  `~/.config/sway/config`. the prefixes set names and permissions
-  (`dot_` → `.`, `private_` → no group/other access, `executable_` →
-  `+x`, `symlink_` → a symlink).
-* `home/.chezmoiignore` decides what each machine gets: the desktop
-  configs are linux-only, zsh and starship are macos-only, and
-  everything else goes to both. tmux is retired; its config is kept for
-  history but never deployed.
-* `home/run_*` scripts install packages on `chezmoi apply`, and rerun
-  only when their list changes.
-* `packages/` holds those lists: `apt.txt`, `apt-no-recommends.txt`
-  (sway, without foot and wmenu) and `Brewfile`.
+## Terminal
 
-## bootstrap
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mistpine/mistpine.ghostty/main/assets/screenshots/shell.png" alt="Ghostty with the mistpine theme" width="80%">
+</p>
+
+- **[Ghostty](https://ghostty.org/)** (`ghostty/`): JetBrainsMono Nerd
+  Font Mono at 12 pt, a blinking block cursor, and the mistpine theme.
+  Left Option acts as Alt on macOS. `alt+left/right` and
+  `ctrl+shift+left/right` are unbound so they reach the app inside
+  (herdr moves tabs with the latter).
+- **[herdr](https://herdr.dev/)** (`herdr/`): a workspace manager for
+  running AI coding agents side by side. Its prefix is `ctrl+t`, with
+  tmux-style splits (`prefix "` and `prefix %`), `ctrl+shift+left/right`
+  to move tabs, an agent sidebar, and mistpine colors. The install script
+  sets it up, and `herdr update` keeps it current.
+
+tmux is retired. Its config stays in the repo for history but is never
+deployed.
+
+## Shell
+
+**fish on Ubuntu** (`private_fish/`), with plugins from
+[Fisher](https://github.com/jorgebucaran/fisher):
+
+- [Tide](https://github.com/IlanCosman/tide) prompt
+- [z](https://github.com/jethrokuan/z) for directory jumping
+- [fzf.fish](https://github.com/PatrickF1/fzf.fish), plus `ctrl+f` to jump
+  to any repo under `ghq root` or to `~/.config`
+- `vim` → `nvim`, `g` → `git`, `ll` → `exa -l -g --icons`
+
+**zsh on macOS**, with the [Starship](https://starship.rs/) prompt
+(`starship/starship.toml`; set
+`STARSHIP_CONFIG=~/.config/starship/starship.toml`).
+
+## Neovim
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mistpine/mistpine.nvim/main/assets/preview.png" alt="Neovim with mistpine.nvim" width="80%">
+</p>
+
+A Neovim 0.12+ config (`nvim/`) with no plugin manager.
+[`vim.pack`](https://neovim.io/doc/user/pack.html#vim.pack) installs the
+plugins, and `nvim-pack-lock.json` pins all 34.
+
+- **LSP:** native `vim.lsp`, with
+  [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) defaults and
+  overrides in `after/lsp/`. The servers are gopls, pyright, ruff, lua_ls,
+  jsonls, yamlls, taplo, marksman, dockerls and tofu_ls.
+- **Tools:** [mason](https://github.com/mason-org/mason.nvim) installs the
+  servers, formatters, linters and the tree-sitter CLI into nvim's own
+  PATH, so both machines get the same versions.
+- **Editing:** blink.cmp, conform, nvim-lint, nvim-treesitter (main) with
+  textobjects, mini, dial, inc-rename.
+- **UI:** telescope, snacks, noice, lualine, bufferline, incline,
+  gitsigns, and
+  [mistpine.nvim](https://github.com/mistpine/mistpine.nvim).
+
+See [`nvim/README.md`](home/private_dot_config/nvim/README.md) for the
+module layout and how to add, update or remove plugins.
+
+## Window managers
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mistpine/mistpine.sway/main/assets/preview.png" alt="sway with mistpine" width="80%">
+</p>
+
+On Ubuntu, i3 (X11) and sway (Wayland) are both installed; pick one at the
+login screen. Both include **`wm/common.conf`** for keybindings,
+workspaces, gaps and the resize mode, so a change there applies to both.
+
+| | i3 (X11) | sway (Wayland) |
+|---|---|---|
+| Bar | [Polybar](https://github.com/polybar/polybar) | [Waybar](https://github.com/Alexays/Waybar) |
+| Compositor | [picom](https://github.com/yshui/picom) | built in |
+| Lock and idle | xss-lock + i3lock | swaylock + swayidle |
+| Wallpaper | feh | swaybg |
+| Screenshots | | grim + slurp → clipboard (`Print`) |
+| Launcher | [rofi](https://github.com/davatorium/rofi) 2.0 | rofi 2.0 |
+
+**Main keys** (`Super` is the modifier):
+
+| Keys | Action |
+|---|---|
+| `Super+Return` | Ghostty |
+| `Super+d` | rofi |
+| `Super+q` | close window |
+| `Super+h/j/k/l` | focus left/down/up/right |
+| `Super+Shift+h/j/k/l` | move window |
+| `Super+v` / `Super+Shift+v` | split vertically / horizontally |
+| `Super+s` / `w` / `e` | stacked / tabbed / toggle split |
+| `Super+f` | fullscreen |
+| `Super+1…0` | workspace 1–10 (`+Shift` moves the window) |
+
+After editing, check both configs:
 
 ```sh
-# chezmoi isn't in the ubuntu archive; the official installer works on
-# both systems
+i3 -C -c ~/.config/i3/config && sway --unsupported-gpu -C -c ~/.config/sway/config
+```
+
+## Theme
+
+Every app uses [mistpine](https://github.com/mistpine/mistpine), with cool
+misty grays over a deep blue-green night and muted, earthy accents. Each
+app has its own port:
+[Ghostty](https://github.com/mistpine/mistpine.ghostty) ·
+[Neovim](https://github.com/mistpine/mistpine.nvim) ·
+[sway and i3](https://github.com/mistpine/mistpine.sway) ·
+[Waybar](https://github.com/mistpine/mistpine.waybar) ·
+[Polybar](https://github.com/mistpine/mistpine.polybar) ·
+[swaylock](https://github.com/mistpine/mistpine.swaylock) ·
+[rofi](https://github.com/mistpine/mistpine.rofi).
+herdr uses mistpine colors in `herdr/config.toml`.
+
+## Fonts
+
+| Font | Used by | How to get it |
+|---|---|---|
+| JetBrainsMono Nerd Font | Ghostty, swaylock | Brewfile on macOS; [Nerd Fonts](https://www.nerdfonts.com/) on Ubuntu |
+| InconsolataGo Nerd Font | Polybar, Waybar | [Nerd Fonts](https://www.nerdfonts.com/) (not packaged) |
+| FontAwesome | bar icons | `fonts-font-awesome` (apt) |
+
+## Install
+
+```sh
+# chezmoi isn't in Ubuntu's archive; the official installer works on both
 sh -c "$(curl -fsLS get.chezmoi.io)" -- -b ~/.local/bin
 
 git clone https://github.com/lnutimura/dotfiles ~/ghq/github.com/lnutimura/dotfiles
@@ -37,83 +154,60 @@ chezmoi diff    # review before the first apply
 chezmoi apply
 ```
 
-`apply` writes the configs and runs the scripts. on ubuntu it
-`apt install`s whatever is missing from `packages/apt*.txt` (asking for
-sudo only then), installs neovim from the snap (the archive has 0.11),
-and installs fisher plus the plugins in `fish_plugins`. on macos it
-installs homebrew if needed and runs `brew bundle`. on both it installs
-herdr into `~/.local/bin` with its official installer if it's missing
-(`herdr update` keeps it current after that), and enables the gitleaks
-pre-commit hook in this clone.
+`chezmoi apply` writes the configs for the current OS and runs the setup
+scripts:
 
-neovim gets the tree-sitter cli from mason (`plugins/lsp.lua`), not
-from the system: nvim-treesitter needs 0.26.1 or later, and ubuntu
-26.04's `tree-sitter-cli` is 0.25, so don't install that one. building
-parsers needs a C compiler: `build-essential` on ubuntu (in
-`apt.txt`), the xcode command line tools on macos (the homebrew
-installer sets them up).
+| Script | macOS | Ubuntu |
+|---|---|---|
+| Packages | installs Homebrew if needed, then `brew bundle` | `apt install`s whatever is missing from `packages/apt*.txt` (sudo only then); Neovim from the snap, because the archive has 0.11 |
+| fish plugins | | installs Fisher and syncs `fish_plugins` |
+| herdr | official installer if missing | official installer if missing |
+| Git hooks | enables the gitleaks pre-commit hook | enables the gitleaks pre-commit hook |
 
-## daily workflow
+The package scripts rerun only when their list changes.
 
-chezmoi copies files into `~`; it doesn't link them. so after changing a
-config, get the change back into the repo:
+**Still manual:**
 
-* **edit through chezmoi:** `chezmoi edit --apply ~/.config/sway/config`
-  edits the repo file and applies it.
-* **or edit in place, then copy back:** `chezmoi re-add` copies every
-  managed file that changed in `~` into the repo. run it after
-  `vim.pack.update()` (`nvim-pack-lock.json`) and `fisher install`
-  (`fish_plugins`) too, since they rewrite their own files.
-* **before committing:** `chezmoi status` lists what still differs
-  between `~` and the repo.
-* **new file:** `chezmoi add ~/.config/foo/config`. if it belongs to one
-  system only, add it to `home/.chezmoiignore`.
-* **new package:** add it to `packages/apt.txt` or `packages/Brewfile`;
-  the next `chezmoi apply` installs it.
-* **from the other machine:** `chezmoi update` (`git pull` + `apply`),
-  or `git pull` then `chezmoi diff` and `chezmoi apply`.
-* **what this machine manages:** `chezmoi managed`.
+- [asdf](https://asdf-vm.com/guide/getting-started.html), which provides
+  node for mason's npm-based servers
+- Nerd Fonts on Ubuntu (see [Fonts](#fonts))
+- [gitleaks](https://github.com/gitleaks/gitleaks) on Ubuntu (it's in the
+  Brewfile on macOS)
 
-## manual installs
+## Daily use
 
-not covered by the scripts:
+chezmoi copies files into `~`; it doesn't link them. After a change, get
+it back into the repo:
 
-* [asdf](https://asdf-vm.com/guide/getting-started.html) (both)
-* JetBrainsMono and InconsolataGo fonts from
-  [nerd fonts](https://www.nerdfonts.com/) on ubuntu (not packaged;
-  polybar needs InconsolataGo). macos gets JetBrainsMono from the
-  Brewfile.
+| To | Run |
+|---|---|
+| Edit a config and apply it | `chezmoi edit --apply ~/.config/sway/config` |
+| Copy changes made in `~` back to the repo | `chezmoi re-add` (also after `vim.pack.update()` or `fisher install`) |
+| See what differs before committing | `chezmoi status` |
+| Track a new file | `chezmoi add ~/.config/foo/config` (one OS only? add it to `home/.chezmoiignore`) |
+| Add a package | edit `packages/apt.txt` or `packages/Brewfile`, then `chezmoi apply` |
+| Pull from the other machine | `chezmoi update` (`git pull` + `apply`) |
+| List what this machine manages | `chezmoi managed` |
 
-## ubuntu notes
+## Ubuntu notes
 
-* `xorg` and `xserver-xorg-input-libinput` are installed by name. gnome
-  on 26.04 is wayland-only, so a release upgrade autoremoves them, and
-  i3 then starts with no keyboard or mouse. check after an upgrade.
-* use the archive `picom` (12.x). a build against older ubuntu
+- **X11 packages.** `xorg` and `xserver-xorg-input-libinput` are
+  installed by name. GNOME on 26.04 is Wayland-only, so a release upgrade
+  autoremoves them, and i3 then starts with no keyboard or mouse. Check
+  after an upgrade.
+- **picom.** Use the archive build (12.x). A build against older Ubuntu
   libraries breaks after an upgrade.
-* i3 and sway both draw `~/.local/share/wallpaper`, a per-machine
-  symlink that chezmoi doesn't manage. point it at an image once:
+- **Wallpaper.** i3 and sway both draw `~/.local/share/wallpaper`, a
+  per-machine symlink that chezmoi doesn't manage. Point it at an image
+  once:
 
   ```sh
   ln -sfn <image> ~/.local/share/wallpaper
   ```
-
-## ubuntu: sway next to i3
-
-sway runs next to i3; pick it at the login screen. keybindings,
-workspaces and the resize mode live in `~/.config/wm/common.conf`
-(`home/private_dot_config/wm/common.conf`), which both `i3/config` and
-`sway/config` include, so change them there and check both afterwards:
-
-```sh
-i3 -C -c ~/.config/i3/config && sway --unsupported-gpu -C -c ~/.config/sway/config
-```
-
-* sway refuses the proprietary nvidia driver unless started with
-  `--unsupported-gpu`, and has no environment variable for it. add a
-  login-screen entry that passes the flag, then log in to
-  "Sway (NVIDIA)". this file lives outside `~`, so chezmoi doesn't
-  manage it:
+- **NVIDIA and sway.** sway refuses the proprietary driver unless started
+  with `--unsupported-gpu`, and has no environment variable for it. Add a
+  login-screen entry that passes the flag, then log in to "Sway
+  (NVIDIA)". This file lives outside `~`, so chezmoi doesn't manage it:
 
   ```sh
   sudo tee /usr/local/share/wayland-sessions/sway-nvidia.desktop <<'EOF'
@@ -124,19 +218,36 @@ i3 -C -c ~/.config/i3/config && sway --unsupported-gpu -C -c ~/.config/sway/conf
   DesktopNames=sway;wlroots
   EOF
   ```
-* the output line in `sway/config` names this machine's monitor
-  (`DP-2`); list yours with `swaymsg -t get_outputs`.
-* use firefox from [mozilla's apt repo](https://support.mozilla.org/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions),
-  not the snap. on nvidia + wayland the snap cannot reach the gpu
+- **Monitor.** The output line in `sway/config` names this machine's
+  monitor (`DP-2`); list yours with `swaymsg -t get_outputs`.
+- **Firefox.** Use the build from
+  [Mozilla's apt repo](https://support.mozilla.org/kb/install-firefox-linux#w_install-firefox-deb-package-for-debian-based-distributions),
+  not the snap. On NVIDIA + Wayland the snap can't reach the GPU
   (`DMABUF: FEATURE_FAILURE_NO_DRM_DEVICE`), so it renders and decodes
-  video on the cpu, and the 4k frames it hands to sway stall input.
-* waybar's tray only supports StatusNotifierItem, so sway starts
-  `nm-applet --indicator`; `autostart/nm-applet.desktop` keeps dex from
-  starting a second copy without it.
+  video on the CPU, and the 4K frames it hands to sway stall input.
+- **Tray.** Waybar's tray only supports StatusNotifierItem, so sway
+  starts `nm-applet --indicator`; `autostart/nm-applet.desktop` keeps dex
+  from starting a second copy without it.
+- **tree-sitter.** Neovim gets the tree-sitter CLI from mason, because
+  nvim-treesitter needs 0.26.1 or later and Ubuntu's `tree-sitter-cli` is
+  0.25. Don't install the apt one. Building parsers needs a C compiler
+  (`build-essential`, in `apt.txt`).
 
-## git hooks
+## Repository layout
 
-a pre-commit hook runs [gitleaks](https://github.com/gitleaks/gitleaks)
-on staged changes and blocks commits that contain secrets. `chezmoi
-apply` enables it once per clone (`core.hooksPath .githooks`); install
-gitleaks itself first (the Brewfile has it on macos).
+```
+.
+├── home/                    chezmoi source state (see .chezmoiroot)
+│   ├── .chezmoiignore       which files each OS gets
+│   ├── private_dot_config/  → ~/.config
+│   └── run_*                setup scripts
+├── packages/                apt.txt, apt-no-recommends.txt, Brewfile
+└── .githooks/pre-commit     gitleaks on staged changes
+```
+
+Each file in `home/` maps to a path in `~`, e.g.
+`home/private_dot_config/sway/config` is `~/.config/sway/config`. The
+name prefixes set names and permissions: `dot_` becomes `.`, `private_`
+removes group and other access, `executable_` adds `+x`, and `symlink_`
+creates a symlink. `.chezmoiignore` keeps the desktop configs on Linux
+and zsh and Starship on macOS; everything else goes to both.
