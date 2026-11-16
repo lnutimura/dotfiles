@@ -1,0 +1,30 @@
+# Target paths (in ~) that chezmoi must not manage on this machine.
+# Evaluated as a template on each machine.
+
+# Retired: kept in the repo for history, never deployed.
+.tmux.conf
+.config/tmux
+
+{{ if ne .chezmoi.os "linux" }}
+# Linux desktop only.
+.config/autostart
+.config/fish
+.config/i3
+.config/picom
+.config/polybar
+.config/sway
+.config/swayidle
+.config/swaylock
+.config/swaynag
+.config/waybar
+.config/wm
+.config/xdg-desktop-portal
+{{ end }}
+
+{{ if ne .chezmoi.os "darwin" }}
+# macOS only.
+.zprofile
+.zshenv
+.zshrc
+.config/starship
+{{ end }}

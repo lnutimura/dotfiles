@@ -1,0 +1,6 @@
+# Generated into ~/.config/chezmoi/chezmoi.toml by `chezmoi init`.
+# The repo lives at the ghq path, not ~/.local/share/chezmoi.
+sourceDir = {{ joinPath .chezmoi.homeDir "ghq/github.com/lnutimura/dotfiles" | quote }}
+
+# Same permissions on both machines (Ubuntu's default umask is 002).
+umask = 0o022

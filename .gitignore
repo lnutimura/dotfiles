@@ -1,27 +1,24 @@
 .DS_Store
 ._*
 
-# herdr runtime state
-.config/herdr/*.log
-.config/herdr/session.json
-.config/herdr/release-notes.json
-.config/herdr/plugins.json
-.config/herdr/.plugins.lock
-.config/herdr/plugins/github/
-.config/herdr/session-snapshots/
-
-# secrets and machine-local files
+# secrets and machine-local files. chezmoi stores ~/.foo as dot_foo
+# (private_dot_foo when it is not world-readable), so match both forms.
 .env
 .env.*
+*dot_env
+*dot_env.*
 *.local
 *.local.*
 local.fish
 fish_variables
 *_history
-.netrc
-.config/gh/hosts.yml
+*.netrc
+*dot_netrc
+**/gh/hosts.yml
 .ssh/
+*dot_ssh/
 .gnupg/
+*dot_gnupg/
 *.pem
 *.key
 *.p12
