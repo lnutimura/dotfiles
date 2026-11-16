@@ -1,0 +1,13 @@
+---@type vim.lsp.Config
+return {
+  cmd_env = { RUFF_TRACE = "messages" },
+  init_options = {
+    settings = {
+      logLevel = "error",
+    },
+  },
+  on_attach = function(client)
+    -- Hover comes from pyright.
+    client.server_capabilities.hoverProvider = false
+  end,
+}

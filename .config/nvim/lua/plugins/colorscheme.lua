@@ -1,12 +1,6 @@
-return {
-  {
-    "mistpine/mistpine.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-    config = function(_, opts)
-      require("mistpine").setup(opts)
-      vim.cmd.colorscheme("mistpine")
-    end,
-  },
-}
+local gh = require("util").gh
+
+vim.pack.add({ gh("mistpine/mistpine.nvim") })
+
+require("mistpine").setup({})
+vim.cmd.colorscheme("mistpine")
