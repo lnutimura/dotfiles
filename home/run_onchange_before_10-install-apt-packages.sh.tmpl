@@ -1,0 +1,38 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Install the packages in packages/apt*.txt that are missing. Reruns
+# when either list changes.
+# apt.txt hash: {{ include (joinPath .chezmoi.workingTree "packages/apt.txt") | sha256sum }}
+# apt-no-recommends.txt hash: {{ include (joinPath .chezmoi.workingTree "packages/apt-no-recommends.txt") | sha256sum }}
+
+set -eu
+
+packages_dir={{ joinPath .chezmoi.workingTree "packages" | quote }}
+
+missing() {
+	grep -v '^[[:space:]]*\(#\|$\)' "$1" | while read -r pkg; do
+		dpkg-query -W -f='${Status}' "$pkg" 2>/dev/null |
+			grep -q 'install ok installed' || echo "$pkg"
+	done
+}
+
+with_recommends=$(missing "$packages_dir/apt.txt")
+without_recommends=$(missing "$packages_dir/apt-no-recommends.txt")
+
+if [ -n "$with_recommends$without_recommends" ]; then
+	sudo apt-get update
+fi
+if [ -n "$with_recommends" ]; then
+	# shellcheck disable=SC2086 # one package per word
+	sudo apt-get install -y $with_recommends
+fi
+if [ -n "$without_recommends" ]; then
+	# shellcheck disable=SC2086
+	sudo apt-get install -y --no-install-recommends $without_recommends
+fi
+
+# Neovim >= 0.12 is not in the archive (26.04 ships 0.11); use the snap.
+if ! command -v nvim >/dev/null 2>&1; then
+	sudo snap install nvim --classic
+fi
+{{ end -}}

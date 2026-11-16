@@ -1,0 +1,3 @@
+#!/bin/sh
+# Run the repo's gitleaks pre-commit hook in this clone.
+git -C {{ .chezmoi.workingTree | quote }} config core.hooksPath .githooks

@@ -1,0 +1,32 @@
+# Ubuntu packages, installed with recommends by
+# home/run_onchange_before_10-install-apt-packages.sh.tmpl.
+# One package per line; blank lines and # comments are ignored.
+
+# base tools
+curl
+eza
+fd-find
+fish
+git
+ripgrep
+
+# X11 for i3. Install by name: a release upgrade autoremoves them on
+# Wayland-only GNOME, and i3 then starts with no keyboard or mouse.
+xorg
+xserver-xorg-input-libinput
+
+# i3 session and the helpers its config calls
+i3
+dex
+xss-lock
+network-manager-gnome
+ghostty
+picom
+feh
+polybar
+rofi
+pulseaudio-utils
+wireplumber
+x11-xserver-utils
+psmisc
+fonts-font-awesome

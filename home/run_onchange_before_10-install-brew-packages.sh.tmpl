@@ -1,0 +1,21 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+# Install Homebrew if needed, then the packages in packages/Brewfile.
+# Reruns when the Brewfile changes.
+# Brewfile hash: {{ include (joinPath .chezmoi.workingTree "packages/Brewfile") | sha256sum }}
+
+set -eu
+
+if ! command -v brew >/dev/null 2>&1; then
+	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+for brew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+	if [ -x "$brew" ]; then
+		eval "$("$brew" shellenv)"
+		break
+	fi
+done
+
+brew bundle --file={{ joinPath .chezmoi.workingTree "packages/Brewfile" | quote }}
+{{ end -}}

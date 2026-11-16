@@ -1,0 +1,14 @@
+# Ubuntu packages installed with --no-install-recommends. sway would
+# otherwise pull in foot and wmenu, which ghostty and rofi already cover.
+
+# sway session
+sway
+swaylock
+swayidle
+swaybg
+waybar
+xdg-desktop-portal-wlr
+xdg-desktop-portal-gtk
+wl-clipboard
+grim
+slurp

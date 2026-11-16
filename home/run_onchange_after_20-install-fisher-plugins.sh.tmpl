@@ -1,0 +1,19 @@
+{{- if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Install fisher and the plugins in fish_plugins. Reruns when the list
+# changes.
+# fish_plugins hash: {{ include "private_dot_config/private_fish/fish_plugins" | sha256sum }}
+
+set -eu
+
+if ! command -v fish >/dev/null 2>&1; then
+	echo "fish not found; skipping fisher plugins" >&2
+	exit 0
+fi
+
+fish -c '
+functions -q fisher
+or curl -fsSL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source
+fisher update
+'
+{{ end -}}

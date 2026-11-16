@@ -1,0 +1,15 @@
+# macOS packages, installed by
+# home/run_onchange_before_10-install-brew-packages.sh.tmpl.
+# Starter list; curate it against `brew bundle dump` on the Mac.
+
+brew "chezmoi"
+brew "fd"
+brew "ghq"
+brew "gitleaks"
+brew "neovim"
+brew "ripgrep"
+brew "starship"
+brew "tree-sitter-cli"
+
+cask "ghostty"
+cask "font-jetbrains-mono-nerd-font"
