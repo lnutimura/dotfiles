@@ -230,3 +230,55 @@ require("zen-mode").setup({
   },
 })
 vim.keymap.set("n", "<Leader>z", "<Cmd>ZenMode<CR>", { desc = "Zen Mode" })
+
+-- Key clues: after a trigger key, show the keys that can follow it in the
+-- bottom-right corner. Type the next key to narrow the list; <BS> goes
+-- back, <Esc> cancels, <C-d>/<C-u> scroll. Labels come from mapping descs.
+-- `;` and `s` are left out: as triggers they would wait for a second key
+-- forever, which breaks the plain `;` (repeat f/t) motion.
+local miniclue = require("mini.clue")
+miniclue.setup({
+  triggers = {
+    { mode = { "n", "x" }, keys = "<Leader>" },
+    { mode = { "n", "x" }, keys = "[" },
+    { mode = { "n", "x" }, keys = "]" },
+    { mode = "i", keys = "<C-x>" }, -- built-in completion
+    { mode = { "n", "x" }, keys = "g" },
+    { mode = { "n", "x" }, keys = "'" }, -- marks
+    { mode = { "n", "x" }, keys = "`" },
+    { mode = { "n", "x" }, keys = '"' }, -- registers
+    { mode = { "i", "c" }, keys = "<C-r>" },
+    { mode = "n", keys = "<C-w>" },
+    { mode = { "n", "x" }, keys = "z" },
+  },
+  clues = {
+    -- Leader groups.
+    { mode = { "n", "x" }, keys = "<Leader>c", desc = "+code" },
+    { mode = "n", keys = "<Leader>f", desc = "+file/find" },
+    { mode = { "n", "x" }, keys = "<Leader>g", desc = "+git" },
+    { mode = { "n", "x" }, keys = "<Leader>gh", desc = "+hunks" },
+    { mode = "n", keys = "<Leader>t", desc = "+buffers" },
+    { mode = "n", keys = "<Leader>u", desc = "+ui" },
+
+    -- Built-in keys.
+    miniclue.gen_clues.square_brackets(),
+    miniclue.gen_clues.builtin_completion(),
+    miniclue.gen_clues.g(),
+    miniclue.gen_clues.marks(),
+    miniclue.gen_clues.registers(),
+    -- <C-w>+, <C-w>- etc. stay in a resize submode: keep pressing them
+    -- without retyping <C-w>, then <Esc> to leave.
+    miniclue.gen_clues.windows({ submode_resize = true }),
+    miniclue.gen_clues.z(),
+
+    -- The arrow resize keys from config/keymaps.lua join the same submode.
+    { mode = "n", keys = "<C-w><Left>", postkeys = "<C-w>", desc = "Decrease width" },
+    { mode = "n", keys = "<C-w><Right>", postkeys = "<C-w>", desc = "Increase width" },
+    { mode = "n", keys = "<C-w><Up>", postkeys = "<C-w>", desc = "Increase height" },
+    { mode = "n", keys = "<C-w><Down>", postkeys = "<C-w>", desc = "Decrease height" },
+  },
+  window = {
+    delay = 200,
+    config = { width = "auto" },
+  },
+})
